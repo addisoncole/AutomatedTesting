@@ -18,7 +18,7 @@ describe Card do
       # raise ArgumentError.new
       expect {Card.new(0, :diamonds)}.must_raise ArgumentError
       expect {Card.new(14, :diamonds)}.must_raise ArgumentError
-        expect {Card.new(13, :clovers)}.must_raise ArgumentError
+      expect {Card.new(13, :clovers)}.must_raise ArgumentError
     end
   end
 
@@ -27,11 +27,21 @@ describe Card do
     it "to_s returns a readable String value logically for values 2-10" do
       # Test to ensure that to_s works for cards values 2-10
       # for example:  "2 of diamonds"
+      [:hearts, :spades, :clubs, :diamonds].each do |suit|
+        (2..10).each do |value|
+          card = Card.new(value, suit)
+          expect(card.to_s).must_be_instance_of String
+        end
+      end
     end
 
     it "to_s returns a readable String value for Ace, Jack, Queen, King" do
       # Test to ensure that to_s works for cards values 1, and 11-13
       # For example: "Queen of hearts"
+      [:hearts, :spades, :clubs, :diamonds].each do |suit|
+        card = Card.new(1, suit)
+        expect(card.to_s).must_equal "Ace of #{suit}"
+      end
     end
   end
 
